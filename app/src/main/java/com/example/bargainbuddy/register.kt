@@ -1,40 +1,41 @@
 package com.example.bargainbuddy
 
-import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.bargainbuddy.databinding.ActivityRegisterBinding
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 
 class register : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityRegisterBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
 
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        var btnRegister: Button = findViewById(R.id.btRegister);
 
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_register)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        btnRegister.setOnClickListener() {
+            insertRegister();
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_register)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    fun insertRegister(){
+        var helper = MyDBHelper(applicationContext)
+        var db = helper.readableDatabase
+        var rs = db.rawQuery("SELECT * FROM USERS", null)
+        var cv = ContentValues()
+
+        var editTextName: EditText = findViewById(R.id.name);
+        var editTextPassword: EditText = findViewById(R.id.password);
+
+        cv.put("NAME", editTextName.text.toString())
+        cv.put("PWD", editTextPassword.text.toString())
+
+        db.insert("USERS", null,cv)
+
+        editTextName.setText("")
+        editTextPassword.setText("")
+
+        editTextName.requestFocus("")
     }
+
 }
