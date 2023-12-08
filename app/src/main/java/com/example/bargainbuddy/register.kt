@@ -35,7 +35,7 @@ class register : AppCompatActivity() {
         editTextName.setText("")
         editTextPassword.setText("")
 
-        editTextName.requestFocus("")
+
     }
 
 }
