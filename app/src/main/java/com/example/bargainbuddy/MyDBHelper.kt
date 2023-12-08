@@ -18,7 +18,7 @@ class MyDBHelper (context: Context) : SQLiteOpenHelper (context, "USERDB", null,
 
     fun loginCheck(name:String, password:String): Cursor {
         val db = this.readableDatabase
-        return db.rawQuery("SELECT * FROM USERS WHERE NAME = '"+ name +"' AND PWD = '"+ password +"'")
+        return db.rawQuery("SELECT * FROM USERS WHERE NAME = '" + name +"' AND PWD ='"+ password +"'", null)
     }
 
 
