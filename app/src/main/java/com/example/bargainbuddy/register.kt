@@ -1,6 +1,7 @@
 package com.example.bargainbuddy
 
 import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -34,6 +35,9 @@ class register : AppCompatActivity() {
 
         editTextName.setText("")
         editTextPassword.setText("")
+
+        intent = Intent(this, login::class.java);
+        startActivity(intent)
 
 
     }
